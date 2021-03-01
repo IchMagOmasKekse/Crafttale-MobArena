@@ -1,0 +1,9 @@
+name: MobArena
+version: 1.0
+author: Crafttale
+api-version: 1.16
+
+main: me.crafttale.de.MA
+commands:
+  sim:
+    description: Simulate Lobby Using
