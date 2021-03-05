@@ -161,15 +161,11 @@ public class Cuboid {
     
     public HashMap<Integer, Sign> loadSigns() {
     	HashMap<Integer, Sign> signs = new HashMap<Integer, Sign>();
-    	Block b;
-    	for(int x = 0; x != getXWidth(); x++) {
-    		for(int y = 0; y != getHeight(); y++) {
-    			b = world.getBlockAt(xMin+x, yMin+y, zMin);
-        		if(b.getState() instanceof Sign) {
-        			Sign s = (Sign)b.getState();
-        			signs.put(signs.size(), (Sign)s);
-        		}
-        	}
+    	for(Block b : blockList()) {
+    		if(b.getState() instanceof Sign) {
+    			Sign s = (Sign)b.getState();
+    			signs.put(signs.size(), (Sign)s);
+    		}
     	}
     	return signs;
     }

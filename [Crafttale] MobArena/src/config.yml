@@ -1,0 +1,43 @@
+#
+# By Crafttale.
+#          2021.
+#
+#
+#
+#
+#
+#
+#
+Locations:
+#LobbyWalls sind die Wände, an denen die Lobby-Schilder platziert werden.
+  LobbyWall:
+    Wall A:
+      Position 1: #Eine Ecke der LobbyWall.
+        World: 'world'
+        X: 0.0D
+        Y: 0.0D
+        Z: 0.0D
+        Yaw: 0.0f
+        Pitch: 0.0f
+      Position 2: #Diagonale von der Ecke Position 1.
+        World: 'world'
+        X: 0.0D
+        Y: 0.0D
+        Z: 0.0D
+        Yaw: 0.0f
+        Pitch: 0.0f
+  Arena Lobby:
+    Position 1: #Eine Ecke des Arena Lobby Spawnbereichs.
+        World: 'world'
+        X: 0.0D
+        Y: 0.0D
+        Z: 0.0D
+        Yaw: 0.0f
+        Pitch: 0.0f
+      Position 2: #Diagonale von der anderen Ecke des Arena Lobby Spawnbereichs.
+        World: 'world'
+        X: 0.0D
+        Y: 0.0D
+        Z: 0.0D
+        Yaw: 0.0f
+        Pitch: 0.0f

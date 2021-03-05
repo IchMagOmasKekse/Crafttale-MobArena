@@ -2,26 +2,35 @@ package me.crafttale.de.mobarena;
 
 import java.util.HashMap;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 
+import me.crafttale.de.Cuboid;
 import me.crafttale.de.MA;
+import me.crafttale.de.Profiler;
+import me.crafttale.de.fileio.FileIO;
 
 public class Lobby {
 
 	private int id = LobbyManager.getRandomID();
 	private Arena arena;
-	public String status = "[JOIN]";
+	public static String status = "§7[§aJOIN§7]";
 	private HashMap<Entity, Boolean> players = new HashMap<Entity, Boolean>(); // <Spieler , HatKitAusgewählt?>
+	private Location spawn;
+	private Cuboid spawnRegion;
 	
 	public Lobby(Arena arena) {
 		this.arena = arena;
+		spawnRegion = new Cuboid(FileIO.readLocation("Locations.Arena Lobby.Position 1"), FileIO.readLocation("Locations.Arena Lobby.Position 2"));
+		spawn = spawnRegion.getRandomLocation();
 	}
 	
 	public boolean join(Entity entity) {
-		if(isFull()) return false;
-		
+		if(isFull() || Profiler.getProfile(entity).getLobby() != null) return false;
+		Profiler.getProfile(entity).setLobby(this);
 		players.put(entity, false);
-		if(isFull()) status = "..in game..";
+		entity.teleport(spawn);
+		if(isFull()) status = "§c..in game..";
 		LobbyManager.updateSign(this);
 		return true;
 	}
@@ -29,8 +38,8 @@ public class Lobby {
 		if(players.containsKey(entity) == false) return false;
 		
 		players.remove(entity);
-		if(isFull()) status = "..in game..";
-		else status = "[JOIN]";
+		if(isFull()) status = "§c..in game..";
+		else status = "§7[§aJOIN§7]";
 		LobbyManager.updateSign(this);
 		return true;
 	}

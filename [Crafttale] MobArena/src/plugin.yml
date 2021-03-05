@@ -6,4 +6,8 @@ api-version: 1.16
 main: me.crafttale.de.MA
 commands:
   sim:
-    description: Simulate Lobby Using
+    description: Simulate Lobby Using.
+  mar:
+    description: Reload MobArena settings.
+  ma:
+    description: MobArena Commands.

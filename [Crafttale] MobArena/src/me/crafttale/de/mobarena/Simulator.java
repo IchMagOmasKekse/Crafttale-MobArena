@@ -21,7 +21,7 @@ public class Simulator {
 	private static HashMap<UUID, Entity> simEntity = new HashMap<UUID, Entity>();
 	private static ArrayList<UUID> joinEntity = new ArrayList<UUID>();
 	
-	private static int secondsLeftForJoining = 0;
+	private static int secondsForJoining = 0;
 	
 	public Simulator() {
 		
@@ -54,13 +54,16 @@ public class Simulator {
 	 */
 	public static void simulateLobbyJoining(int delay, int duration) {
 		if(timers.containsKey("joins")) return;
-		secondsLeftForJoining = duration;
+		secondsForJoining = 0;
 		for(Player p : Bukkit.getOnlinePlayers()) p.sendMessage("§7Join §9Simulation §7is starting(Del.:"+delay+" Dur.:"+duration+")");
 		timers.put("joins", new BukkitRunnable() {
-			
+			int counts = 0;
 			@Override
 			public void run() {
-				if(secondsLeftForJoining == 0) {
+				if(secondsForJoining == 20 && counts < duration) {
+					counts++;
+					secondsForJoining = 0;
+				}else if(counts >= duration) {
 					for(UUID uuid : joinEntity) {
 						simEntity.get(uuid).remove();
 						simEntity.remove(uuid);
@@ -70,7 +73,7 @@ public class Simulator {
 					timers.remove("joins");
 					for(Player p : Bukkit.getOnlinePlayers()) p.sendMessage("§7Join §9Simulation §7is over");
 					return;
-				}else secondsLeftForJoining--;
+				}else secondsForJoining++;
 				
 				Lobby lobby = LobbyManager.getRandomLobby();
 				
@@ -89,7 +92,7 @@ public class Simulator {
 				}
 			}
 		});
-		timers.get("joins").runTaskTimer(MA.ma(), (long)delay*20, (long)2l);
+		timers.get("joins").runTaskTimer(MA.ma(), (long)delay*20, (long)1l);
 	}
 	
 	private static UUID createSimEntity() {
